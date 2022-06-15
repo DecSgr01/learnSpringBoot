@@ -8,17 +8,17 @@ public interface LearnMapper {
 
 
     @Insert("insert into learn(text) values(#{text})")
-    void add(String text);
+    void add(@Param("text") String text);
 
 
     @Delete("delete from learn where id = #{id}")
-    void delete(Integer id);
+    void delete(@Param("id") Integer id);
 
 
     @Update("update learn set text = #{text} where id = #{id}")
-    void update(String text, Integer id);
+    void update(@Param("text") String text, @Param("id") Integer id);
 
 
     @Select("select * from learn where id = #{id}")
-    Learn select(Integer id);
+    Learn select(@Param("id") Integer id);
 }

@@ -8,7 +8,7 @@ import ch.qos.logback.core.pattern.color.ForegroundCompositeConverterBase;
 public class ConsoleColor extends ForegroundCompositeConverterBase<ILoggingEvent> {
 
     @Override
-    protected String getForegroundColorCode(ILoggingEvent  ILoggingEvent ) {
+    protected String getForegroundColorCode(ILoggingEvent ILoggingEvent) {
         Level level = ILoggingEvent.getLevel();
         switch (level.toInt()) {
             //ERROR等级为红色
@@ -20,7 +20,7 @@ public class ConsoleColor extends ForegroundCompositeConverterBase<ILoggingEvent
             //DEBUG等级为绿色
             case Level.DEBUG_INT:
                 return ANSIConstants.GREEN_FG;
-                //其他为默认颜色
+            //其他为默认颜色
             default:
                 return ANSIConstants.DEFAULT_FG;
         }

@@ -1,5 +1,6 @@
 package com.learn.controller;
 
+import com.learn.ann.SysLog;
 import com.learn.bean.Learn;
 import com.learn.result.CodeMsg;
 import com.learn.result.Result;
@@ -7,9 +8,7 @@ import com.learn.service.LearnService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author xyp
@@ -22,29 +21,32 @@ public class LearnController {
     @Autowired
     LearnService learnService;
 
-    @RequestMapping("/add")
-
+    @SysLog(value = "增加")
+    @PostMapping("/add")
     public String add(String text) {
         log.info("add");
         learnService.add(text);
         return Result.success();
     }
 
-    @RequestMapping("/delete/{id}")
+    @SysLog(value = "删除")
+    @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         log.info("delete");
         learnService.delete(id);
         return Result.success();
     }
 
-    @RequestMapping("/update")
+    @SysLog(value = "更新")
+    @PostMapping("/update")
     public String update(Learn learn) {
         log.info("update");
         learnService.update(learn);
         return Result.success();
     }
 
-    @RequestMapping("/select/{id}")
+    @SysLog(value = "查询")
+    @GetMapping("/select/{id}")
     public Result<Learn> select(@PathVariable Integer id) {
         log.info("select");
         Learn learn = learnService.select(id);
