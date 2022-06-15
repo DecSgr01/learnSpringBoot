@@ -1,7 +1,7 @@
 package com.learn.service.impl;
 
 import com.learn.bean.Learn;
-import com.learn.dao.LearnMapper;
+import com.learn.dao.LearnRepository;
 import com.learn.exception.GlobalException;
 import com.learn.request.learnrequest.LearnAddRequest;
 import com.learn.request.learnrequest.LearnUpdataRequest;
@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class LearnServiceImpl implements LearnService {
+public class LearnServiceImpl2 implements LearnService {
     @Autowired
-    LearnMapper learnMapper;
+    LearnRepository learnRepository;
 
     @Override
     public void add(LearnAddRequest request) {
@@ -26,7 +26,9 @@ public class LearnServiceImpl implements LearnService {
             log.error("text is null");
             throw new GlobalException(CodeMsg.ERROR);
         }
-        learnMapper.add(request.getText());
+        Learn learn = new Learn();
+        learn.setText(request.getText());
+        learnRepository.save(learn);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class LearnServiceImpl implements LearnService {
             log.error("id is null");
             throw new GlobalException(CodeMsg.ERROR);
         }
-        learnMapper.delete(id);
+        learnRepository.deleteById(id);
     }
 
 
@@ -45,7 +47,9 @@ public class LearnServiceImpl implements LearnService {
             log.error("learn is null");
             throw new GlobalException(CodeMsg.ERROR);
         }
-        learnMapper.update(learnUpdataRequest.getText(), learnUpdataRequest.getId());
+        Learn learn = learnRepository.getById(learnUpdataRequest.getId());
+        learn.setText(learnUpdataRequest.getText());
+        learnRepository.save(learn);
     }
 
     @Override
@@ -54,6 +58,6 @@ public class LearnServiceImpl implements LearnService {
             log.error("id is null");
             throw new GlobalException(CodeMsg.ERROR);
         }
-        return learnMapper.select(id);
+        return learnRepository.getById(id);
     }
 }
