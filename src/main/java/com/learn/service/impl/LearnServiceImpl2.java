@@ -29,6 +29,7 @@ public class LearnServiceImpl2 implements LearnService {
         Learn learn = new Learn();
         learn.setText(request.getText());
         learnRepository.save(learn);
+        int i = 1 / 0;//测试异常
     }
 
     @Override

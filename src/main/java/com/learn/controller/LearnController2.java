@@ -11,6 +11,7 @@ import com.learn.service.impl.LearnServiceImpl2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -28,6 +29,7 @@ public class LearnController2 {
 
     @SysLog(value = "增加")
     @PostMapping("/add")
+    @Transactional
     public String add(LearnAddRequest request) {
         log.info("add");
         learnService2.add(request);
